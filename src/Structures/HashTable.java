@@ -44,7 +44,7 @@ public class HashTable {
 		String s = "";
 		for(int x=0;x<arr.length;x++){
 			if(arr[x] != null){
-				s+=(String.format("Memory Locatiom:%-10d%-10s\n",x,arr[x].getContent()));
+				//s+=(String.format("Memory Locatiom:%-10d%-10s\n",x,arr[x].getContent()));
 			}
 		}
 		return s;

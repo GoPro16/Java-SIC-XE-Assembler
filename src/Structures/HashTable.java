@@ -9,7 +9,7 @@ public class HashTable {
 	
 	private DataItem[] arr; // the array of items
 	private int size;	//The size of the array
-
+	private int maxSearch;
 	/**
 	 * Constructor for the HashTable
 	 * @param size - the size of the table
@@ -18,7 +18,35 @@ public class HashTable {
 	public HashTable(int size){
 		this.size = size;
 		arr = new DataItem[size];
+		maxSearch = 1;
 	}//end HashTable
+	
+	public DataItem find(String key){
+		int walker;//walker to walk on array
+		int count = 1;//counter for probing
+		int  newHash;
+		boolean found = false;
+		int hash = hash(key);
+		if(arr[hash].getInstruction().equals(key)){
+			return arr[hash];
+		}
+		while(!found){
+			walker = hash;
+			newHash = quadP(count++);
+			for(int x=newHash;x>0;x--){
+				if(++walker == arr.length){
+					walker = 0;
+				}
+			}
+			if(arr[walker].getInstruction().equals(key)){
+				return arr[walker];
+			}//if the array item is null or
+			if(count>maxSearch){
+				break;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Hashes the given string
@@ -44,7 +72,7 @@ public class HashTable {
 		String s = "";
 		for(int x=0;x<arr.length;x++){
 			if(arr[x] != null){
-				//s+=(String.format("Memory Locatiom:%-10d%-10s\n",x,arr[x].getContent()));
+				s+=(String.format("Memory Locatiom:%-10d%-10s\n",x,arr[x].getContent()));
 			}
 		}
 		return s;
@@ -57,8 +85,9 @@ public class HashTable {
 	 */
 	public void insert(DataItem item){
 		//Hash
-		String s = item.getContent();
+		String s = item.getInstruction();
 		int hash = hash(s);
+		
 		//insert
 		if(arr[hash] == null){
 			arr[hash] = item;
@@ -91,6 +120,9 @@ public class HashTable {
 				isFound = true;
 			}//if the array item is null or
 		}//while the item position isn't found
+		if(count>maxSearch){
+			maxSearch = count;
+		}
 	}//end probeInsert
 	
 	

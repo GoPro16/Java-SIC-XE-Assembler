@@ -37,6 +37,12 @@ public class DataItem {
 		return String.format("%8s %8d",instruction,bytes); 
 	}
 	
+	public int getBytes(){
+		return bytes;
+	}
+	public String getInstruction(){
+		return instruction;
+	}
 	
 	public boolean compareTo(String s){
 		return (s == instruction);

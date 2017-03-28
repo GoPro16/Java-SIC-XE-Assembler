@@ -1,8 +1,10 @@
+package Main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import Structures.*;
 /**
  * @author - Kyle Gray
@@ -32,7 +34,7 @@ public class MainClass{
 		SymbolTable.createTable();
 		main.readProgram();
 		//Display the insertions
-		System.out.println(SymbolTable.table.displayTable());
+		//System.out.println(SymbolTable.table.displayTable());
 	}//end main
 	
 }//end MainClass

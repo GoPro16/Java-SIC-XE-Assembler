@@ -1,3 +1,4 @@
+package Main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -82,4 +83,8 @@ public class SymbolTable {
 		}//while the number isn't prime
 		return num;
 	}//end findNextPrime
+	
+	public static HashTable getTable(){
+		return table;
+	}
 }

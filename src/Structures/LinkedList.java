@@ -1,5 +1,7 @@
 package Structures;
 
+import Main.SymbolTable;
+
 public class LinkedList{
 	private Link first;
 	private Link last;
@@ -29,7 +31,7 @@ public class LinkedList{
 	
 	public void insert(String data){
 		if(first == null){
-			first = new Link(data,null);
+			first = new Link(data,-1);
 			last = first;
 		}else{
 			Link newLink = new Link(data,last.nextAddress());
@@ -54,14 +56,14 @@ class Link{
 	private String operand;
 	private boolean format4 = false;
 	private boolean sic = false;
-	private String address;
+	private int address;
 	private String label;
 	
-	public Link(String data,String address){
-		if(address == null){
-			address = data.substring(10,16);
+	public Link(String data,int add){
+		if(add == -1){
+			this.address = (int)(Long.parseLong(data.substring(19,28).trim(),16));
 		}else{
-			this.address = address;
+			this.address = add;
 		}
 		
 		//Checks label
@@ -75,29 +77,27 @@ class Link{
 		}
 		
 		//Instruction
-		mneumonic = data.substring(10,16);
+		mneumonic = data.substring(10,16).trim();
 		
 		//Operand
-		operand = data.substring(19);
+		operand = data.substring(19).trim();
 	}
 	
-	public String nextAddress(){
-		int inc = 3;
-		if(format4){
-			inc = 4;
-		}else if(sic){
-			inc = 3;
-		}else if(mneumonic.equals("RESW")){
-			inc = Integer.parseInt(operand);
-		}//Still working
+	public int nextAddress(){
+		int inc;
+		if(mneumonic.equals("RESW")){
+			inc = 3*Integer.parseInt(operand);
+		}else{
+			inc = SymbolTable.getTable().find(this.mneumonic).getBytes();
+		}
 		return incrementAddress(inc);
 	}
 	
-	public String incrementAddress(int count){
-		return null;
+	public int incrementAddress(int count){
+		return (int)(Long.parseLong(Integer.toString(address))+Long.parseLong(Integer.toString(count)));
 	}
 	
 	public String getDisplayFormat(){
-		return String.format("%-10s%-10s%-10s%-10s",address,label,mneumonic,operand);
+		return String.format("%-10s%-10s%-10s%-10s",Integer.toHexString(address).toUpperCase(),label,mneumonic,operand);
 	}
 }

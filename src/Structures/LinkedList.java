@@ -1,5 +1,6 @@
 package Structures;
 
+import Main.ErrorTable;
 import Main.SymbolTable;
 
 public class LinkedList{
@@ -58,8 +59,11 @@ class Link{
 	private boolean sic = false;
 	private int address;
 	private String label;
+	private String comment;
+	private int status;
 	
 	public Link(String data,int add){
+		status = -1;
 		if(add == -1){
 			this.address = (int)(Long.parseLong(data.substring(19,28).trim(),16));
 		}else{
@@ -80,15 +84,34 @@ class Link{
 		mneumonic = data.substring(10,16).trim();
 		
 		//Operand
-		operand = data.substring(19).trim();
+		try{
+			operand = data.substring(19,28).trim();
+		}catch(StringIndexOutOfBoundsException e){
+			operand = data.substring(19).trim();	
+		}
+		
+		//Comments
+		try{
+			comment = data.substring(31);
+		}catch(StringIndexOutOfBoundsException e){
+			comment = "";
+		}
 	}
 	
 	public int nextAddress(){
 		int inc;
 		if(mneumonic.equals("RESW")){
 			inc = 3*Integer.parseInt(operand);
+		}else if(this.mneumonic == null || this.mneumonic.equals("")){
+			status = 200;
+			inc = 0;
 		}else{
-			inc = SymbolTable.getTable().find(this.mneumonic).getBytes();
+			inc = SymbolTable.getTable().find(this.mneumonic);
+		}
+		
+		if(inc == -1){
+			status = 100;
+			inc = 0;
 		}
 		return incrementAddress(inc);
 	}
@@ -98,6 +121,10 @@ class Link{
 	}
 	
 	public String getDisplayFormat(){
-		return String.format("%-10s%-10s%-10s%-10s",Integer.toHexString(address).toUpperCase(),label,mneumonic,operand);
+		if(status == -1){
+			return String.format("%-10s%-10s%-10s%-10s%-10s",Integer.toHexString(address).toUpperCase(),label,mneumonic,operand,comment);
+		}else{
+			return ErrorTable.report(status);
+		}
 	}
 }

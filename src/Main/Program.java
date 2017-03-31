@@ -35,7 +35,9 @@ public class Program {
 		input = "";
 		content = "";
 		while((input = bReader.readLine()) != null){
-			instructions.insert(input);
+			if(input.split("\\s+").length > 0){
+				instructions.insert(input);	
+			}//checks if there is an empty line
 		}
 		return content;
 	}//end readInput

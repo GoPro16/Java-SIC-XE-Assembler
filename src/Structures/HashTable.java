@@ -71,7 +71,7 @@ public class HashTable {
 	 * @return - the formated string of info
 	 */
 	public String displayTable(){
-		String s = "";
+		String s ="";
 		for(int x=0;x<arr.length;x++){
 			if(arr[x] != null){
 				s+=(String.format("Memory Locatiom:%-10d%-10s\n",x,arr[x].getContent()));
@@ -79,6 +79,16 @@ public class HashTable {
 		}
 		return s;
 	}//end displayInsertions
+	
+	public String displayWordStorage(){
+		String s = String.format("%-10s%8s%8s\n","Table Location","Label","Address");
+		for(int x=0;x<arr.length;x++){
+			if(arr[x] != null && arr[x].isWordStorage()){
+				s+=(String.format("%-18d%-8s%-10s\n",x,arr[x].getInstruction(),arr[x].getOptCode()));
+			}
+		}
+		return s;
+	}
 	
 	
 	/**

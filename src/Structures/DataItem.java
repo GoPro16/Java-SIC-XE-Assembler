@@ -12,12 +12,14 @@ public class DataItem {
 	private boolean sic;
 	private String optCode;
 	private int bytes;
+	private boolean word;
 	
-	public DataItem(String s){
-		assignValues(s);
+	public DataItem(String s,boolean isWord){
+		assignValues(s,isWord);
 	}
 	
-	public void assignValues(String s){
+	public void assignValues(String s,boolean isWord){
+		word = isWord;
 		String[] temp = s.split("\\s+");
 		instruction = temp[0];
 		optCode = temp[1];
@@ -35,6 +37,14 @@ public class DataItem {
 	//gets the content of the item
 	public String getContent(){
 		return String.format("%8s %8d",instruction,bytes); 
+	}
+	
+	public String getOptCode(){
+		return optCode;
+	}
+	
+	public boolean isWordStorage(){
+		return word;
 	}
 	
 	public int getBytes(){

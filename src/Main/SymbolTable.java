@@ -54,10 +54,14 @@ public class SymbolTable {
 		
 		//For each element inert into the table
 		for(String element : inputArr){
-			table.insert(new DataItem(element));
+			table.insert(new DataItem(element,false));
 		}
 		
 	}//end insertions
+	
+	public static void insertWord(String data){
+		table.insert(new DataItem(data,true));
+	}
 	
 	/**
 	 * Finds the next prime greater than a min value

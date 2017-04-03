@@ -3,16 +3,16 @@ package Main;
 public class ErrorTable {
 	
 	public static String report(int status){
-		String s = "";
+		String s = "ERROR: ";
 		switch(status){
 		case 100:
-			s = "Invalid Mneumonic";
+			s += "Invalid Mneumonic";
 			break;
 		case 200:
-			s = "Invalid Instruction Format";
+			s += "Invalid Instruction Format";
 			break;
 		default:
-			s= "Some error occured";
+			s += "Some error occured";
 			break;
 		}
 		

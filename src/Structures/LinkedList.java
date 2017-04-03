@@ -43,6 +43,8 @@ public class LinkedList{
 	
 	public void display(){
 		Link temp = first;
+		System.out.println(String.format("%-10s%-10s%-10s%-10s%-10s","Address","Label","Instruct","Operand","Comments"));
+		System.out.println("-------------------------------------------------");
 		while(temp != null){
 			System.out.println(temp.getDisplayFormat());
 			temp = temp.next;
@@ -95,6 +97,13 @@ class Link{
 			comment = data.substring(31);
 		}catch(StringIndexOutOfBoundsException e){
 			comment = "";
+		}
+		
+		
+		if(mneumonic.equals("RESW") && !label.isEmpty()){
+			SymbolTable.insertWord(String.format("%s %s %d",label,address,Integer.parseInt(operand)*3));
+		}else if(mneumonic.equals("WORD") && !label.isEmpty()){
+			SymbolTable.insertWord(String.format("%s %s %d",label,address,3));
 		}
 	}
 	

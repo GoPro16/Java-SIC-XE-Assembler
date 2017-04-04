@@ -15,9 +15,9 @@ public class MainClass{
 	private Program program;
 	
 	
-	public void readProgram() throws IOException{
+	public void readProgram(String filename) throws IOException{
 		try {
-			program = new Program(new File("testFile.txt"));
+			program = new Program(new File(filename));
 			program.display();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -32,7 +32,7 @@ public class MainClass{
 		//Create instance of the mainClass
 		MainClass main = new MainClass();
 		SymbolTable.createTable();
-		main.readProgram();
+		main.readProgram(args[0]);
 		//Display the insertions
 		System.out.println(SymbolTable.table.displayWordStorage());
 	}//end main

@@ -81,10 +81,10 @@ public class HashTable {
 	}//end displayInsertions
 	
 	public String displayWordStorage(){
-		String s = String.format("%-10s%8s%8s\n","Table Location","Label","Address");
+		String s = String.format("\n%-10s%8s%8s\n","Table Location","Label","Address");
 		for(int x=0;x<arr.length;x++){
 			if(arr[x] != null && arr[x].isWordStorage()){
-				s+=(String.format("%-18d%-8s%-10s\n",x,arr[x].getInstruction(),arr[x].getOptCode()));
+				s+=(String.format("%-18d%-8s%-10s\n",x,arr[x].getInstruction(),Integer.toHexString(Integer.parseInt(arr[x].getOptCode())).toUpperCase()));
 			}
 		}
 		return s;

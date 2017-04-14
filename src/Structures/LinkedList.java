@@ -53,7 +53,7 @@ public class LinkedList{
 }//end List
 
 class Link{
-	
+	public ObjectCode objectCode;//ObjectCode String
 	public Link next;
 	private String mneumonic;
 	private String operand;
@@ -65,6 +65,8 @@ class Link{
 	private int status;
 	
 	public Link(String data,int add){
+		System.out.println(data);
+		objectCode = new ObjectCode();
 		status = -1;
 		if(add == -1){
 			this.address = (int)(Long.parseLong(data.substring(19,28).trim(),16));
@@ -105,6 +107,51 @@ class Link{
 		}else if(mneumonic.equals("WORD") && !label.isEmpty()){
 			SymbolTable.insertWord(String.format("%s %s %d",label,address,3));
 		}
+		
+		//Append the first part of object code
+		switch(this.mneumonic){
+		case "START":
+		case "BASE":
+			break;
+		case "WORD":
+			String temp = operand;
+			while(operand.length() != 6){
+				operand = "0"+objectCode;
+			}
+			objectCode.setAddress(Integer.parseInt(operand,16));
+			break;
+		case "RESW":
+			objectCode.setAddress(Integer.parseInt("FFFFFF",16));
+			break;
+		default:
+			try{
+			objectCode.setOptCode(Integer.parseInt(SymbolTable.table.find(this.mneumonic).getOptCode(),16));
+			switch(data.charAt(18)){
+			case '#':
+				System.out.println("THIS SHOULD FUCKING WORD");
+				try{
+					if(Integer.parseInt(operand) == Integer.parseInt(operand,10)){
+						objectCode.calcNI(false,true);
+					}
+				}catch(NumberFormatException e){
+					objectCode.calcNI(true, true);	
+				}
+				break;
+			case '@':
+				objectCode.calcNI(true, false);
+				break;
+			default:
+				objectCode.calcNI(true, true);
+				break;
+			}
+			}catch(NullPointerException e){
+			}
+		}
+		
+	
+			//(Long.parseLong(Integer.toString(address))+Long.parseLong(Integer.toString(count)));
+		
+		System.out.println(objectCode.toString());
 	}
 	
 	public int nextAddress(){
@@ -115,7 +162,7 @@ class Link{
 			status = 200;
 			inc = 0;
 		}else{
-			inc = SymbolTable.getTable().find(this.mneumonic);
+			inc = SymbolTable.getTable().find(this.mneumonic).getBytes();
 		}
 		
 		if(inc == -1){

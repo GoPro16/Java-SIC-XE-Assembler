@@ -21,14 +21,14 @@ public class HashTable {
 		maxSearch = 1;
 	}//end HashTable
 	
-	public int find(String key){
+	public DataItem find(String key){
 		int walker;//walker to walk on array
 		int count = 1;//counter for probing
 		int  newHash;
 		boolean found = false;
 		int hash = hash(key);
 		if(arr[hash] != null && arr[hash].getInstruction().equals(key)){
-			return arr[hash].getBytes();
+			return arr[hash];
 		}
 		while(!found){
 			walker = hash;
@@ -39,7 +39,7 @@ public class HashTable {
 				}
 			}
 			if(arr[walker] != null && arr[walker].getInstruction().equals(key)){
-				return arr[walker].getBytes();
+				return arr[walker];
 			}//if the array item is null or
 			if(count>maxSearch){
 				break;
@@ -47,7 +47,7 @@ public class HashTable {
 			
 			
 		}
-		return -1;
+		return null;
 	}
 	
 	/**

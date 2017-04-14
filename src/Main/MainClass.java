@@ -34,7 +34,7 @@ public class MainClass{
 		SymbolTable.createTable();
 		main.readProgram(args[0]);
 		//Display the insertions
-		System.out.println(SymbolTable.table.displayWordStorage());
+		//System.out.println(SymbolTable.table.displayWordStorage());
 	}//end main
 	
 }//end MainClass

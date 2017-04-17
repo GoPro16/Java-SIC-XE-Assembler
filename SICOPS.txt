@@ -119,6 +119,7 @@ STCH    54    3   0
 STX     10    3   0
 RMO     AC    2   0
 COMPR   A0    2   0
+ADDR    90    2   0
 SHIFTL  A4    2   0
 STL     14    3   0
 +TD     E0    4   1

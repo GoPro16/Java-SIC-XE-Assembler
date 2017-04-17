@@ -28,7 +28,6 @@ public class MainClass{
 	
 	//Main
 	public static void main(String[] args) throws IOException{
-		
 		//Create instance of the mainClass
 		MainClass main = new MainClass();
 		SymbolTable.createTable();

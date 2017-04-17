@@ -1,0 +1,22 @@
+****************************
+Kyle Gray: SIC/XE Assembler
+Version Date 04/14/17
+****************************
+ASSEMBLER REPORT
+-----------------
+     Loc   Object Code     Source Code
+     ---   -----------      -----------
+001- 00100 000000         ADDRES  START  100                          
+002- 00100 6B100117       NOW     +LDB   #BEGIN           
+003- 00103 000000         XXX     BASE   BEGIN            
+004- 00103 9050           ACE     ADDR   T,A              
+005- 00105 034CD2                 LDA    THERE                     
+006- 00108 FFFFFF         EN      RESW   4       .Hello world       
+007- 00114 000002         BE      WORD   2                         
+008- 00117 FFFFFF         BEGIN   RESW   1                
+009- 0011A FFFFFF         JUNK    RESW   1000                       
+010- 00CD2 FFFFFF         THERE   RESW   1                
+011- 00CD5 032442         ZZZ     LDA    JUNK                          
+012- 00CD8 0F2FF7                 STA    THERE                         
+013- 00CDB 000000                 END    NOW                         
+
